@@ -38,7 +38,7 @@ export default function SignIn() {
         cleanInputs()
         window.location.href = '/to-do'
       } else {
-        alert('Иди нахуй!')
+        alert('Неправильний пароль або логін')
       }
     }
   }
