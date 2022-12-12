@@ -25,6 +25,7 @@ export default function SignUp() {
 
     if (localStorage.getItem('users') === null) {
       let objWithUser: object
+
       objWithUser = {
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
@@ -38,18 +39,27 @@ export default function SignUp() {
 
       cleanInputs()
       window.location.href = '/to-do'
+      return
     }
 
-    let usersForRewrite: Array<object> = []
-    usersForRewrite = JSON.parse(localStorage.getItem('users') || '{ }')
+    //////////////////////////////////////////////////////////////////////////////////////
 
-    let objWithNewUsers: object
+    let usersForRewrite: Array<any> = JSON.parse(localStorage.getItem('users') || '{ }')
 
-    objWithNewUsers = {
+    let objWithNewUsers = {
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
+    }
+
+    if (
+      usersForRewrite.find((user) => {
+        return user.email === objWithNewUsers.email
+      })
+    ) {
+      alert('Користувач з такою поштою вже існує')
+      return
     }
 
     usersForRewrite.push(objWithNewUsers)
@@ -104,6 +114,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  type="email"
                   id="email"
                   label="Email Address"
                   name="email"
